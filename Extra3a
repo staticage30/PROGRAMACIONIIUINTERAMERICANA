@@ -1,0 +1,153 @@
+package conkim;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+
+public class Extra3a implements Initializable {
+
+		/* variables y llamadas de funciones de clases externas: */
+	
+		String local3="C:/Users/kenny-kun/Desktop/workspace/kim_class1.0/Datos/";
+		String localAcion3="file:\\C:\\Users\\kenny-kun\\Desktop\\workspace\\kim_class1.0\\imag\\Animal\\";
+		
+		
+		
+		
+		//String localIMG url="C:/Users/Master-K/Google Drive/Java_Fl1/workspace/kim_class1.0/imag/voceENG";
+		String[] niño=Core.Speak_chan1(local3+"niño.txt", 39);
+		String[] errorING=Core.Speak_chan1(local3+"error-ING.txt",11 );
+		//String[] errorING2=Core.Speak_chan1(local1+"error-ING.txt", 5);
+		//Path localIMG= Paths.get("imag/run.png");
+		
+		public int i=0,randown2=0,op1=0;
+		String[] acioneng2=Core.Generar_AnING(local3+"Animales.txt", 10);
+
+		private int cont2=18;//variable del niño dialogo que complete su recorrido de ayuda
+		public boolean vis1 =false;//variable false usar variable
+		//URL url = getClass().getResource("run.png");
+		
+		public int perdiste=0;
+		
+		
+		@FXML private Text textnin;
+		@FXML private ImageView imag3;
+		@FXML private Button ButonF;
+		@FXML public  TextField animal;
+		
+		
+		public void pantalla(){
+			
+			animal.setVisible(vis1);
+			imag3.setVisible(vis1);
+		}
+
+	public void ima(){
+		Image imageM =new Image (localAcion3+acioneng2[i]+".png");
+		imag3.setImage(imageM);////para las imagenes imprecion 
+		
+	}
+		
+		@FXML
+		public void animal_rai(KeyEvent ken1){   ///jajaja estoy buscando el codigo de ejecucion sola y no la encuentro :D
+			if(ken1.getCode().equals(KeyCode.ENTER)){
+			textnin.setText("Cual sera la respues");
+			System.out.println(i);
+			for( int a = 0; a<= 10; a++)
+			{
+				
+				System.out.println( acioneng2[i]);
+			}
+			//String text = textnin.getText();
+			ima();
+				try{
+					/*
+					if(animal.getText()==acioneng2[i]){
+					 
+				
+				
+				textnin.setText("Es correcto :D");
+				animal.setText("");
+				i++;
+			
+				System.out.println(acioneng2[i]+"   "+textnin.getText());
+				
+				
+				
+			}
+						else {
+				
+				ima();
+				textnin.setText("es incorrecta, la que era: "+acioneng2[i]);
+				animal.setText("");
+				System.out.println(acioneng2[i]+"   "+textnin.getText());
+				i++;
+				
+			}	*/
+					System.out.println("My vaiable " +   acioneng2[i]);
+				System.out.println("My Textbox " +   animal.getText());
+			
+			}catch(Exception a){
+				     	
+				     	textnin.setText("Amiguito: recuerda introducir letras");
+				     		System.out.println(a);}
+				     	}
+		}
+				     	
+				     	
+		@FXML
+		public void keap2 (MouseEvent mousee1){//////////niño charla
+			if (mousee1.getButton().equals(MouseButton.PRIMARY)){
+	         /*haremos el recorrido de la charla del niño con el usuario*/
+				
+				try{
+					if(cont2 <29){
+						
+						textnin.setText(niño[cont2]);
+						
+
+						cont2++;
+
+					}
+					
+					else{
+						vis1=true;
+						pantalla();
+						
+						
+
+						//System.out.println(acioneng[i]);
+						ButonF.setVisible(false);
+						
+						
+						
+						//ejecuta1();
+					}
+				}catch(Exception a){
+					
+					System.out.println(a);
+				}
+				
+			}
+			
+		}
+
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		pantalla();
+		//ima();
+		System.out.println(acioneng2[i]);
+		;
+	}}
+	
+	
