@@ -1,0 +1,250 @@
+package conkim;
+
+/*import javafx.beans.property.ObjectProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+*/
+import java.net.URL;
+import java.util.ResourceBundle;
+
+
+
+import javafx.beans.value.ChangeListener;
+//import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+//import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;;
+
+//@../../imag/niño.txt
+//ruta casa:"C:/Users/kenny-kun/Google Drive/Java_Fl1/workspace/kim_class1.0/Datos/niño.txt"
+//ruta Work= "C:/Users/Master-K/Google Drive/Java_Fl1/workspace/kim_class1.0/Datos/niño.txt" 
+public class  Extra1a implements  Initializable {
+	public String localniño="C:/Users/kenny-kun/Google Drive/Java_Fl1/workspace/kim_class1.0/Datos/niño.txt";//localizacion de datos
+	String[] niño=Core.Speak_chan1(localniño, 39);//cantidad a cargar total a 39
+	String sigoper= Core.Operacion();/// signos de operacion
+	int opem = Core.Numero();//numero random 1 entero
+	int opem2=Core.Numero();//numero random 2
+	String num1= Integer.toString(opem);//numero random 1 convertido a String
+	String num2=Integer.toString(opem2);//numero random 2 convertido a String
+	private int cont=0;
+	public int preguntatope=0;
+	public int resultado=0;
+	public boolean visible=false;
+	private int mas11;
+	
+	//public boolean comprobe=true;
+	
+	//int juegoopera1= Core.Opera_juego1(resultado, sigoper, opem, opem2);
+	
+	
+	
+	
+	@FXML private Text boytext;///para usar las Variables del FMXL
+	@FXML private Label labred;
+	@FXML private Label labsign;
+	@FXML private Label labblue;
+	@FXML private Label igual;
+	@FXML private TextField fieldtxt; 
+	
+	
+	/*
+	//public final void setOnKeyReleased(EventHandler<? super KeyEvent> value){
+	//public final ObjectProperty<EventHandler<? super KeyEvent>> onKeyR(KeyEvent ken){
+		boytext.setText("Cuanto es: ");
+	*/
+
+	@FXML
+	public void empezar(KeyEvent ken){   ///jajaja estoy buscando el codigo de ejecucion sola y no la encuentro :D
+		boytext.setText("Cual sera la respues");
+		if(ken.getCode().equals(KeyCode.ENTER)){
+			int juegoopera1= Core.Opera_juego1(resultado, sigoper, opem, opem2);
+			//recordar que si se usa variables que estan en una fucion de una clase Static puede usarse sin renombrar
+		
+		    String obten =fieldtxt.getText();
+			int numero = Integer.parseInt(obten);
+			ejecuta();
+			
+			try{
+				
+				if(numero==juegoopera1){
+					
+					
+					////////////
+			     	 
+					   int ranm=Core.givenum(30, 32);
+					    boytext.setText(niño[ranm]);//imprimir interactuar niño
+
+					    fieldtxt.setText("");///para limpiar lo que escribe
+					    
+					//System.out.println("acertaste");
+					
+					
+					//System.out.println("respuesta: "+juegoopera1);
+					
+				imprime();
+			     	}
+					
+					
+					////////////
+					
+				
+			
+				 if(numero!=juegoopera1){
+					
+					 boytext.setText("Incorrecta la respuesta era: "+juegoopera1);
+					//System.out.println("te equivocaste");
+					 fieldtxt.setText("");///para limpiar lo que escribe
+					//System.out.println("respuesta: "+juegoopera1);
+					imprime();
+				}
+				
+				 if(preguntatope==9){///solo son 9 preguntas ejecutar accion mostrar resultado
+					
+					System.out.println("se acabo");
+					
+				}
+				 
+				
+				preguntatope++;
+				//System.out.println(preguntatope);
+			
+			
+			}catch(Exception a){System.out.println(a);}//permite tambien mandar mensaje de ayuda al niño
+			
+		//System.out.println("se acabo");
+		//}
+		}
+		
+		ken.consume();
+		
+	
+		
+	}
+		private void imprime(){
+			
+			if(sigoper=="-"){
+				
+				
+				   if(opem>opem2){
+				  labred.setText(num1);
+				  labsign.setText(sigoper);
+			      labblue.setText(num2);}
+			      
+				
+				      else if(opem<opem2){
+					     labred.setText(num2);
+					     labsign.setText(sigoper);
+				         labblue.setText(num1);}
+			             }
+				  else{
+					 
+					  labred.setText(num1);
+					  labsign.setText(sigoper);
+				      labblue.setText(num2);}
+			
+			 
+		}
+		public void ejecuta(){
+			opem = Core.Numero();
+		    opem2 = Core.Numero();
+		    sigoper= Core.Operacion();
+		    num1= Integer.toString(opem);
+			num2=Integer.toString(opem2);
+			
+			
+		}
+		
+		private boolean ver(){
+	
+			labred.setVisible(visible);
+			labsign.setVisible(visible);
+			labblue.setVisible(visible);
+			igual.setVisible(visible);
+			fieldtxt.setVisible(visible);
+			return visible;
+			
+			
+		}
+	
+	///////metodo de text niño habla
+	@FXML
+	public void textBoyButton(MouseEvent mouseEve){
+		if (mouseEve.getButton().equals(MouseButton.PRIMARY)){
+			//if(mouseEve.getClickCount()==1){    //un click mas pausado
+			
+			    try{
+			    
+				//for(int i=0;i<niño.length;i=cont){
+			   if(cont<7){        ////cambiar conforme al menu::::: 7 es el menu de Extra1a
+				
+				boytext.setText(niño[cont]);
+				//System.out.println("click");
+				//System.out.println(niño[37]);
+				cont++;
+				
+			
+				
+			   }
+			   
+			   else{
+				   visible=true;
+				   //System.out.println(visible);
+				   /*
+				    labred.setVisible(true);;
+					labsign.setVisible(true);
+					labblue.setVisible(true);
+					igual.setVisible(true);
+					fieldtxt.setVisible(true);
+					*/
+				   
+				   imprime();
+				   visible=true;
+				   ver();
+				   
+				
+				}}catch(Exception a){
+					System.out.println(a);
+
+				}
+
+			}
+		/*
+		labred.setVisible(visible);
+		labsign.setVisible(visible);
+		labblue.setVisible(visible);
+		igual.setVisible(visible);
+		fieldtxt.setVisible(visible);
+	*/
+		}
+
+	public void initialize(URL url, ResourceBundle rb) {
+		
+	       //  TODO
+		
+		
+		// if(fieldtxt.==true){
+		
+		ver();
+		//Desavilitando los paneles de accion
+		
+		// System.out.println(visible);
+		 //}
+	    }
+		//public String ma;
+		
+
+		
+		
+	}
+	
+
+	
+
+
