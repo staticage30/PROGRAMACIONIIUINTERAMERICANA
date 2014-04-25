@@ -1,0 +1,229 @@
+package conkim;
+
+
+//import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.BufferedReader;
+//import java.io.BufferedWriter;
+import java.io.File;
+//import java.io.FileWriter;
+//import java.io.InputStreamReader;
+
+
+
+public class Core {
+	
+private static int Score;
+
+public static String[] Generar_AnING(String RutaArchivo, int Cantidad ) 
+ {
+	String[]  Preguntas = new String[Cantidad];	
+	
+	try
+	{
+		/*Lee el archivo txt en la ruta */
+	FileReader fr = new FileReader(RutaArchivo);
+	
+	BufferedReader textReader = new BufferedReader(fr);
+	String TEXTO = textReader.readLine();	
+	String[] Datos = TEXTO.split(";");
+	
+	
+	/*se establecen los rangos para la cantidad de preguntas*/
+	int numero = 0;
+	int Min = 0;
+	int Max = Datos.length - 1; /*el maximo es la cantidad total de preguntas que hay en el archivo*/
+
+	
+	/*si la cantidad requerida es mayor a el numero de preguntas*/
+	if (Cantidad > Max)
+	{		
+		Cantidad = Max;		
+	}
+	
+	
+	for(int Contador = 0; Contador < Cantidad; Contador++)
+	{
+		/*Generar un numero random*/
+		numero = Min + (int)(Math.random() * ((Max - Min) + 1));
+		boolean Repetido = false;
+		
+		/*si ya se han agregado preguntas*/
+		
+		if (Preguntas.length > 0)
+		{
+			/* verificar si se ha agregado la pregunta */
+		
+		for(int PreguntasAgregadas = 0; PreguntasAgregadas < Preguntas.length - 1; PreguntasAgregadas++)
+		{
+			if (Preguntas[PreguntasAgregadas] == Datos[numero])
+			{
+				Repetido = true;
+			}				
+		}
+		}
+		
+		/*si la pregunta no se encontro en el arreglo*/
+		
+		if (!Repetido)
+		{		
+		/*agregar pregunta*/
+			Preguntas[Contador] = Datos[numero];			
+		}
+		else
+		{		
+			/*quedarse en la posicion hasta q se agregue la pregunta*/
+			Contador--;
+		}		
+	
+	 }
+	
+	}
+	catch(Exception ex)
+	{
+		
+		/*imprime error*/
+		System.out.println(ex.getMessage());
+	
+	}
+	
+	/*devuelve las preguntas*/
+	 return Preguntas;
+ }
+
+public static int NumEspecial()
+{		
+	/*Retorna cualquier numero del 1 al 10*/
+	
+	int Min = 1;
+	int Max = 10;	
+    return  Min + (int)(Math.random() * ((Max - Min) + 1));
+}
+
+public static int Numero()
+{		
+	/*Retorna cualquier numero del 1 al 10*/
+	
+	int Min = 1;
+	int Max = 10;	
+    return  Min + (int)(Math.random() * ((Max - Min) + 1));
+}
+
+
+public static String Operacion()
+{	/*devuelve una operacion random en forma de string*/
+	String[] Operacion = new String[]{"+","-","*"};
+	int Min = 0;
+	int Max = 2;
+	
+	int Posicion = Min + (int)(Math.random() * ((Max - Min) + 1));
+	
+    return Operacion[Posicion];
+}
+
+  public static int Opera_juego1 (int respuesta,String signo,int n1,int n2){
+	
+	  if (signo == "+")
+		{
+		  respuesta = n1 + n2;
+		}
+
+	  else if (signo == "*")
+		{
+			respuesta = n1 * n2;
+		}
+	  else if (signo == "-")
+		{
+		  if(n1>n2){
+			respuesta = n1 - n2;
+		  }
+		  else if(n1<n2){
+			  respuesta = n2 - n1;
+			  
+		  }
+			}
+	return respuesta;
+}
+  
+  
+//clase especial creada paranumero randow 
+public static int givenum(int x, int y){
+	
+	int Min = x;
+	int Max = y;
+	
+	int point = Min + (int)(Math.random() * ((Max - Min) + 1));
+	return(point);
+}
+
+public static String[] Speak_chan1(String rut,int max){
+	String[]  dai = new String[max];	
+	
+	try{
+		FileReader lan = new FileReader(rut);
+		BufferedReader textReader = new BufferedReader(lan);
+		String TEXTOBOY = textReader.readLine();	
+		String[] DatosS = TEXTOBOY.split(";");
+		
+
+		for( int i=0;max>=i;i++){
+			dai[i]=DatosS[i];
+		}
+		
+	}catch(Exception a){
+		
+		//System.out.println(a);//notifica una adevertencia leve que no tranca el juego
+		
+	}
+	
+	return dai;
+	
+}
+
+public static void Score(boolean EsCorrecta){
+	
+	/*agrega +1 si la respuesta es correcta*/
+	if(EsCorrecta)
+	{
+		Score = Score +   1;
+	}
+ 
+
+}
+	public static void Clean_Score()
+	{	
+		/*limpia el score*/
+			Score = 0;
+
+	}
+	
+	public static String Return_Score(int Cantidad)
+	{
+	
+		/*Calcula el porcentaje*/
+		Double Final = (double) ((Score * 100) / Cantidad);
+		
+		
+		
+		/*retorna el valir valor*/
+		if(Final <= 70)
+		{return "d";}
+		
+		if(Final >= 71 &&  Final <= 80)
+		{return "c";}
+		
+		if(Final >= 81 &&  Final <= 90)
+		{return "b";}	
+		
+		
+		return "a";
+		
+	}
+
+
+
+
+
+
+
+}
