@@ -1,0 +1,228 @@
+package conkim;
+
+
+import java.net.URL;
+
+import java.util.ResourceBundle;
+
+
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
+
+
+//para la pantalla 2 este es el juego
+
+/* Rutas Locales:*/
+//ruta casa:"C:/Users/kenny-kun/Google Drive/Java_Fl1/workspace/kim_class1.0/Datos/niño.txt"
+//ruta Work= "C:/Users/Master-K/Google Drive/Java_Fl1/workspace/kim_class1.0/Datos/niño.txt" 
+public class Extra2a implements Initializable {
+
+	/* variables y llamadas de funciones de clases externas: */
+	String local1="C:/Users/kenny-kun/Desktop/workspace/kim_class1.0/Datos/";
+	String localAcion="file:\\C:\\Users\\kenny-kun\\Desktop\\workspace\\kim_class1.0\\imag\\voceENG\\";
+	//String localIMG url="C:/Users/Master-K/Google Drive/Java_Fl1/workspace/kim_class1.0/imag/voceENG";
+	String[] niño=Core.Speak_chan1(local1+"niño.txt", 39);
+	String[] errorING=Core.Speak_chan1(local1+"error-ING.txt",11 );
+	//String[] errorING2=Core.Speak_chan1(local1+"error-ING.txt", 5);
+	//Path localIMG= Paths.get("imag/run.png");
+	
+	public int i=0,randown2=0,op1=0;
+	String[] acioneng=Core.Generar_AnING(local1+"Idiomas.txt", 11);
+	private int cont1=7;//variable del niño dialogo que complete su recorrido de ayuda
+	public boolean vis1 =false;//variable false usar variable
+	//URL url = getClass().getResource("run.png");
+	
+	public int perdiste=0;
+	
+	
+	@FXML private Text txtprint;
+	@FXML private ImageView accionima;
+	@FXML private Button ButonA;
+	@FXML private Button ButonB;
+	@FXML private Button ButonC;
+	@FXML private Button next2;
+	
+	
+	
+	public void pantalla(){
+		
+		accionima.setVisible(vis1);
+		ButonA.setVisible(vis1);
+		ButonB.setVisible(vis1);
+		ButonC.setVisible(vis1);
+	}
+
+public void ima(){
+	Image imageM =new Image (localAcion+acioneng[i]+".png");
+	accionima.setImage(imageM);
+	
+	
+	
+}
+public void correct(){
+	
+	
+	if(randown2==op1){
+		int ranm=Core.givenum(30, 32);
+		txtprint.setText(niño[ranm]);
+		i++;
+		verboton ();
+		
+		ima();
+		
+		
+		
+		
+	}
+else{//System.out.println("te equivocaste");
+	perdiste++;
+	txtprint.setText("Respuesta Incorrecta");
+	/*
+	if(perdiste==3){}
+	txtprint.setText("Sorry. Vuelve Pronto");*/
+}
+}
+	
+
+	
+
+	public int verboton (){
+		 randown2=Core.givenum(1, 3);
+		int numero=Core.NumEspecial();
+		int numero1=Core.givenum(1,10);
+	
+		
+		switch (randown2){
+		
+		case 1 :ButonA.setText(acioneng[i]);ButonB.setText(errorING[numero]);ButonC.setText(errorING[numero1]);
+		//if(i!=numero){ButonB.setText(errorING[numero]);ButonC.setText(errorING[numero1]);}
+		//else{ButonB.setText(errorING[numero]);ButonC.setText(errorING[i]);}
+		//else{ButonC.setText("");ButonB.setText("");}
+		System.out.println(acioneng[i]);
+		System.out.println(randown2);break;
+		
+	     
+		case 2: ButonB.setText(acioneng[i]);ButonA.setText(errorING[numero]);ButonC.setText(errorING[numero1]);
+		//if(i!=numero){ButonA.setText(errorING[numero]);ButonC.setText(errorING[numero1]);}
+		//else{ButonA.setText(errorING[numero]);ButonC.setText(errorING[i]);}
+		System.out.println(acioneng[i]);
+		System.out.println(randown2);break;
+		
+		
+		case 3 :ButonC.setText(acioneng[i]);ButonB.setText(errorING[numero]);ButonA.setText(errorING[numero1]);
+		//if(i!=numero){ButonA.setText(errorING[numero]);ButonB.setText(errorING[numero1]);}
+		//else{ButonB.setText(errorING[numero]);ButonC.setText(errorING[i]);}
+		System.out.println(acioneng[i]);
+		System.out.println(randown2);
+		break;
+		}
+		
+		return randown2;}
+
+	
+	@FXML
+	public void clickBunA (MouseEvent mousout){
+		txtprint.setText("como se dice en Ingles:");
+		if (mousout.getButton().equals(MouseButton.PRIMARY)){
+			
+			
+			op1=1;
+			correct();
+			
+			
+			//correct();
+			
+		}
+		
+	}
+	@FXML
+	public void clickBunB_Focus (MouseEvent mousai){
+		if(ButonA.isFocusTraversable()==false){
+			txtprint.setText("Como se dice en ingles");
+		}
+		
+	}
+	public void clickBunB (MouseEvent mousai){
+		if (mousai.getButton().equals(MouseButton.PRIMARY)){
+			
+			
+			op1=2;
+			correct();
+			
+				
+				
+			
+			
+			//correct();
+			
+		}
+		}
+	@FXML
+	public void clickBunC (MouseEvent mouseou){
+		if (mouseou.getButton().equals(MouseButton.PRIMARY)){
+			
+			op1=3;
+			
+			correct();
+			
+			}
+		}
+	
+	@FXML
+	public boolean keap1 (MouseEvent mouseeven){
+		if (mouseeven.getButton().equals(MouseButton.PRIMARY)){
+         /*haremos el recorrido de la charla del niño con el usuario*/
+			
+			try{
+				if(cont1 <17){
+					
+						txtprint.setText(niño[cont1]);
+						
+
+					cont1++;
+
+				}
+				
+				else{
+					vis1=true;
+					pantalla();
+					verboton ();
+					
+
+					//System.out.println(acioneng[i]);
+					next2.setVisible(false);
+					
+					
+					
+					//ejecuta1();
+				}
+			}catch(Exception a){
+				
+				System.out.println(a);
+			}
+			
+		}
+		return vis1;
+		
+	}
+	
+	
+	
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		pantalla();
+		ima();
+		verboton ();
+		
+		
+
+		
+	}
+
+}
